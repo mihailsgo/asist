@@ -173,6 +173,7 @@
     const outputDropSummaryEl = document.getElementById("output-drop-summary");
     const inputDropBadgeEl = document.getElementById("input-drop-badge");
     const outputDropBadgeEl = document.getElementById("output-drop-badge");
+    const outputDropListEl = document.getElementById("output-drop-list");
     const liveIndicator = document.getElementById("live-indicator");
     const signNowButton = document.querySelector('[data-action="sign-now"]');
     const routeButton = document.querySelector('[data-action="route"]');
@@ -672,9 +673,8 @@
     }
     function updateDropzones() {
       const awaitingCount = state.items.filter((item) => !["signed", "delivered"].includes(item.workflowStatus)).length;
-      const signedCount = state.items.filter((item) => item.workflowStatus === "signed").length;
-      const deliveredCount = state.items.filter((item) => item.workflowStatus === "delivered").length;
-      const completedCount = signedCount + deliveredCount;
+      const signedDocs = state.items.filter((item) => ["signed", "delivered"].includes(item.workflowStatus));
+      const completedCount = signedDocs.length;
       if (inputDropSummaryEl) {
         inputDropSummaryEl.textContent = awaitingCount ? `${awaitingCount} document${awaitingCount === 1 ? "" : "s"} awaiting orchestration` : "All staged documents processed";
       }
@@ -688,6 +688,28 @@
       if (outputDropBadgeEl) {
         outputDropBadgeEl.textContent = completedCount ? "Signatures ready" : "Awaiting signatures";
         outputDropBadgeEl.classList.toggle("muted", completedCount === 0);
+      }
+      if (outputDropListEl) {
+        if (!completedCount) {
+          outputDropListEl.innerHTML = '<li class="drop-list-empty">No signed packages yet.</li>';
+        } else {
+          const entries = signedDocs.slice(0, 6).map((doc) => {
+            const subtitle = `${doc.employeeName || doc.employeeId} \xB7 ${formatDocType(doc.documentType)}`;
+            const statusLabel = statusLabels[doc.workflowStatus] || doc.workflowStatus;
+            return `
+            <li>
+              <span class="drop-list-primary">${doc.documentFilename}</span>
+              <span class="drop-list-secondary">${subtitle}</span>
+              <span class="drop-list-status">${statusLabel}</span>
+            </li>
+          `;
+          });
+          if (signedDocs.length > 6) {
+            const remaining = signedDocs.length - 6;
+            entries.push(`<li class="drop-list-more">+${remaining} additional package${remaining === 1 ? "" : "s"} queued</li>`);
+          }
+          outputDropListEl.innerHTML = entries.join("");
+        }
       }
       if (inputDropzone) {
         inputDropzone.classList.toggle("zone-empty", awaitingCount === 0);

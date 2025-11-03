@@ -910,6 +910,69 @@ td.empty {
   color: rgba(176, 220, 255, 0.65);
 }
 
+.dropzone .drop-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.dropzone .drop-list li {
+  background: rgba(8, 30, 55, 0.7);
+  border: 1px solid rgba(98, 212, 255, 0.25);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 16px 28px -24px rgba(6, 24, 46, 0.6);
+}
+
+.dropzone .drop-list-primary {
+  font-weight: 600;
+  color: #f2f8ff;
+  word-break: break-word;
+}
+
+.dropzone .drop-list-secondary {
+  font-size: 0.78rem;
+  color: rgba(176, 220, 255, 0.75);
+}
+
+.dropzone .drop-list-status {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.32);
+  color: rgba(216, 255, 231, 0.9);
+}
+
+.dropzone .drop-list li:last-child.drop-list-more {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(176, 220, 255, 0.75);
+  padding: 8px 14px;
+  background: rgba(8, 30, 55, 0.55);
+  border-style: dashed;
+}
+
+.dropzone .drop-list-empty {
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(98, 212, 255, 0.25);
+  color: rgba(176, 220, 255, 0.68);
+  font-size: 0.82rem;
+  background: rgba(8, 30, 55, 0.35);
+}
+
 .dropzone.drag-over {
   border-style: solid;
   border-color: rgba(98, 212, 255, 0.75);
