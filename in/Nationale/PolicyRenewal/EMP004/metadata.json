@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250904-PolicyRenewal-EMP004.pdf",
+    "insurer":  "Nationale",
+    "documentType":  "PolicyRenewal",
+    "employeeId":  "EMP004",
+    "employeeName":  "Piotr Wrobel",
+    "receivedAt":  "2025-09-04T13:20:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "policy-renewal@nationale-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Contains all required annexes for PolicyRenewal."
+}

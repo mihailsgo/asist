@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250909-ComplianceCertificate-EMP027.pdf",
+    "insurer":  "PZU",
+    "documentType":  "ComplianceCertificate",
+    "employeeId":  "EMP027",
+    "employeeName":  "Gosia Lewandowski",
+    "receivedAt":  "2025-09-09T23:43:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.pzu.example/api/compliance-cert",
+    "status":  "pending",
+    "notes":  "Awaiting TrustLynx signature guidance for ComplianceCertificate."
+}

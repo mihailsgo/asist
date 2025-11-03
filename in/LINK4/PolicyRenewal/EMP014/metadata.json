@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250914-PolicyRenewal-EMP014.pdf",
+    "insurer":  "LINK4",
+    "documentType":  "PolicyRenewal",
+    "employeeId":  "EMP014",
+    "employeeName":  "Marta Urban",
+    "receivedAt":  "2025-09-14T21:01:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "policy-renewal@link4-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Prepared for expedited insurer validation (PolicyRenewal)."
+}

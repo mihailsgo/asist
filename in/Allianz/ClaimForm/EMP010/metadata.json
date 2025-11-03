@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250905-ClaimForm-EMP010.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "ClaimForm",
+    "employeeId":  "EMP010",
+    "employeeName":  "Tomasz Falkowski",
+    "receivedAt":  "2025-09-06T09:50:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "claim-form@allianz-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Contains all required annexes for ClaimForm."
+}

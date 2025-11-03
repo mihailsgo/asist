@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250911-Onboarding-EMP022.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "Onboarding",
+    "employeeId":  "EMP022",
+    "employeeName":  "Gosia Mazurek",
+    "receivedAt":  "2025-09-12T05:53:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "onboarding@allianz-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Includes supplemental exhibits for Onboarding."
+}

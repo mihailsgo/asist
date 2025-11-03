@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250905-AuditReport-EMP012.pdf",
+    "insurer":  "LINK4",
+    "documentType":  "AuditReport",
+    "employeeId":  "EMP012",
+    "employeeName":  "Marta Wisniewski",
+    "receivedAt":  "2025-09-06T06:14:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "audit-report@link4-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Prepared for expedited insurer validation (AuditReport)."
+}

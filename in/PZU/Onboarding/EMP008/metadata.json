@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250909-Onboarding-EMP008.pdf",
+    "insurer":  "PZU",
+    "documentType":  "Onboarding",
+    "employeeId":  "EMP008",
+    "employeeName":  "Olga Lewandowski",
+    "receivedAt":  "2025-09-09T21:08:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.pzu.example/api/onboarding",
+    "status":  "pending",
+    "notes":  "Prepared for expedited insurer validation (Onboarding)."
+}

@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250919-ClaimForm-EMP029.pdf",
+    "insurer":  "PZU",
+    "documentType":  "ClaimForm",
+    "employeeId":  "EMP029",
+    "employeeName":  "Ewa Sawicki",
+    "receivedAt":  "2025-09-19T14:16:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.pzu.example/api/claim-form",
+    "status":  "pending",
+    "notes":  "Ready for single-click batch pipeline (ClaimForm)."
+}

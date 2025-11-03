@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250829-CoverageUpdate-EMP028.pdf",
+    "insurer":  "Nationale",
+    "documentType":  "CoverageUpdate",
+    "employeeId":  "EMP028",
+    "employeeName":  "Hubert Czarnecki",
+    "receivedAt":  "2025-08-29T18:06:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "coverage-update@nationale-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Contains all required annexes for CoverageUpdate."
+}

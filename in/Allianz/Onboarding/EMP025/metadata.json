@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250902-Onboarding-EMP025.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "Onboarding",
+    "employeeId":  "EMP025",
+    "employeeName":  "Bartosz Zielinska",
+    "receivedAt":  "2025-09-02T17:55:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "onboarding@allianz-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Auto-generated Onboarding package for quarterly review."
+}

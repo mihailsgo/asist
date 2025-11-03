@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250901-ComplianceCertificate-EMP003.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "ComplianceCertificate",
+    "employeeId":  "EMP003",
+    "employeeName":  "Xavier Ratajczak",
+    "receivedAt":  "2025-09-01T19:06:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.allianz.example/api/compliance-cert",
+    "status":  "pending",
+    "notes":  "Auto-generated ComplianceCertificate package for quarterly review."
+}

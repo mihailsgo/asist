@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250908-AuditReport-EMP011.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "AuditReport",
+    "employeeId":  "EMP011",
+    "employeeName":  "Bartosz Wisniewski",
+    "receivedAt":  "2025-09-08T20:18:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.allianz.example/api/audit-report",
+    "status":  "pending",
+    "notes":  "Awaiting TrustLynx signature guidance for AuditReport."
+}

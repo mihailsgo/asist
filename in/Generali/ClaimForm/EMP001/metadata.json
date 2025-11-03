@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250831-ClaimForm-EMP001.pdf",
+    "insurer":  "Generali",
+    "documentType":  "ClaimForm",
+    "employeeId":  "EMP001",
+    "employeeName":  "Hubert Ratajczak",
+    "receivedAt":  "2025-08-31T20:36:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "claim-form@generali-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Includes supplemental exhibits for ClaimForm."
+}

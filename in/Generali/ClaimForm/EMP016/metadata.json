@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250831-ClaimForm-EMP016.pdf",
+    "insurer":  "Generali",
+    "documentType":  "ClaimForm",
+    "employeeId":  "EMP016",
+    "employeeName":  "Yvonne Król",
+    "receivedAt":  "2025-09-01T02:44:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.generali.example/api/claim-form",
+    "status":  "pending",
+    "notes":  "Awaiting TrustLynx signature guidance for ClaimForm."
+}

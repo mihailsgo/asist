@@ -1,0 +1,16 @@
+{
+  "name": "asist-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild ui/app.js --bundle --format=iife --outfile=ui/app.bundle.js --sourcemap",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "jsdom": "^24.0.0",
+    "vitest": "^1.6.0"
+  }
+}

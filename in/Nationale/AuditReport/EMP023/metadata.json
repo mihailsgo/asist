@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250919-AuditReport-EMP023.pdf",
+    "insurer":  "Nationale",
+    "documentType":  "AuditReport",
+    "employeeId":  "EMP023",
+    "employeeName":  "Zofia Falkowski",
+    "receivedAt":  "2025-09-20T03:11:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.nationale.example/api/audit-report",
+    "status":  "pending",
+    "notes":  "Contains all required annexes for AuditReport."
+}

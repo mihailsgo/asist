@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OWFCE Batch Orchestrator</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="data.js"></script>
+  <script defer src="app.bundle.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">TL</div>
+        <div class="brand-text">
+          <span class="brand-label">TrustLynx x OWFCE</span>
+          <span class="brand-title">Batch Signing Console</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="ghost" data-action="export-report">Export Report</button>
+        <button class="primary" data-action="trigger-batch">Sign &amp; Dispatch All</button>
+        <div class="avatar" title="Automation Lead">AN</div>
+      </div>
+    </header>
+    <div class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>One-click signing for 30 insurer-ready documents</h1>
+        <p>Track readiness, signature coverage, delivery posture, and audit visibility in a single guided workspace. Designed for live demos and production scale.</p>
+        <div class="hero-tags">
+          <span class="pill">QES &amp; AES orchestration</span>
+          <span class="pill">Multi-insurer routing</span>
+          <span class="pill">Realtime compliance telemetry</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <button class="primary" data-action="start-demo">Launch Guided Demo</button>
+      </div>
+    </section>
+
+    <main class="layout">
+      <section class="panel metrics" aria-label="Key metrics">
+        <div class="metric" data-metric="total">
+          <span class="metric-label">Documents</span>
+          <span class="metric-value">-</span>
+          <span class="metric-caption">Across 5 insurer cohorts</span>
+        </div>
+        <div class="metric" data-metric="signature">
+          <span class="metric-label">Signature mix</span>
+          <span class="metric-value">-</span>
+          <span class="metric-caption">QES vs AES split</span>
+        </div>
+        <div class="metric" data-metric="delivery">
+          <span class="metric-label">Delivery posture</span>
+          <span class="metric-value">-</span>
+          <span class="metric-caption">Email / API readiness</span>
+        </div>
+        <div class="metric" data-metric="exceptions">
+          <span class="metric-label">Exceptions</span>
+          <span class="metric-value ok">0</span>
+          <span class="metric-caption">Items needing intervention</span>
+        </div>
+      </section>
+
+      <section class="panel folders" aria-label="Folder selection">
+        <div class="folder-card" data-role="input">
+          <div class="folder-head">
+            <div>
+              <span class="folder-label">Input folder</span>
+              <p class="folder-hint">Source PDFs awaiting validation</p>
+            </div>
+            <button class="ghost" data-action="select-input">Change</button>
+          </div>
+          <div class="folder-path" id="input-folder-path"></div>
+          <div class="folder-meta" id="input-folder-meta">
+            <span class="status-dot live"></span>
+            <span class="folder-meta-text" id="input-folder-summary">-</span>
+          </div>
+        </div>
+        <div class="folder-card" data-role="output">
+          <div class="folder-head">
+            <div>
+              <span class="folder-label">Output folder</span>
+              <p class="folder-hint">Signed &amp; routed artifacts</p>
+            </div>
+            <button class="ghost" data-action="select-output">Change</button>
+          </div>
+          <div class="folder-path" id="output-folder-path"></div>
+          <div class="folder-meta" id="output-folder-meta">
+            <span class="status-dot"></span>
+            <span class="folder-meta-text" id="output-folder-summary">-</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel controls" aria-label="Filters">
+        <div class="filter-group">
+          <label for="insurer-filter">Insurer</label>
+          <select id="insurer-filter">
+            <option value="all">All</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="type-filter">Document type</label>
+          <select id="type-filter">
+            <option value="all">All</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="signature-filter">Signature</label>
+          <select id="signature-filter">
+            <option value="all">All</option>
+            <option value="QES">QES</option>
+            <option value="AES">AES</option>
+          </select>
+        </div>
+        <div class="filter-group wide">
+          <label for="search-input">Quick search</label>
+          <input id="search-input" type="search" placeholder="Search employee, notes, targets" />
+        </div>
+        <div class="control-actions">
+          <button class="ghost" data-action="clear-filters">Clear</button>
+          <button class="ghost bulk-trigger" data-action="open-bulk-sign">Review &amp; Sign Selected</button>
+          <button class="primary" data-action="queue-signature">Queue For Signature</button>
+        </div>
+      </section>
+
+      <section class="panel table" aria-label="Document list">
+        <header class="table-header">
+          <div>
+            <h2>Intake pipeline</h2>
+            <p>Curated for signature sequencing, delivery routing, and compliance logging.</p>
+          </div>
+          <div class="table-status inactive" id="live-indicator">
+            <span class="status-dot"></span>
+            <span class="status-message">Live sync idle</span>
+          </div>
+        </header>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th class="select-col" aria-label="Select"></th>
+                <th data-sort="document" tabindex="0" role="button" aria-sort="none">Document</th>
+                <th data-sort="insurer" tabindex="0" role="button" aria-sort="none">Insurer</th>
+                <th data-sort="signature" tabindex="0" role="button" aria-sort="none">Signature</th>
+                <th data-sort="channel" tabindex="0" role="button" aria-sort="none">Channel</th>
+                <th data-sort="receivedDate" tabindex="0" role="button" aria-sort="none">Received</th>
+                <th data-sort="status" tabindex="0" role="button" aria-sort="none">Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="document-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="detail-modal hidden" id="detail-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="detail-title">
+    <div class="modal-backdrop" data-modal-dismiss></div>
+    <div class="modal-card" tabindex="-1">
+      <button class="modal-close" aria-label="Close details" data-modal-dismiss>&times;</button>
+      <header class="modal-header">
+        <div class="modal-heading">
+          <span class="modal-label">Document profile</span>
+          <h3 id="detail-title">Select a document</h3>
+          <span class="detail-sub" id="detail-subtitle"></span>
+        </div>
+        <div class="modal-file">
+          <span class="file-name" id="detail-filename">-</span>
+        </div>
+      </header>
+      <div class="detail-meta" id="detail-meta"></div>
+      <section class="detail-progress">
+        <header>
+          <h4>Workflow timeline</h4>
+          <span id="detail-progress-label"></span>
+        </header>
+        <ol id="detail-timeline"></ol>
+      </section>
+      <section class="signing-suite">
+        <header class="signing-head">
+          <h4>Please choose a signing method</h4>
+          <span class="signing-recommendation">Recommended: <strong id="signing-recommendation">-</strong></span>
+        </header>
+        <div class="signing-options" id="signing-options" role="group" aria-label="Signing methods"></div>
+        <div class="signing-actions">
+          <button class="primary" data-action="sign-now">Begin Signing</button>
+          <button class="ghost" data-action="route">Route To Insurer</button>
+          <button class="ghost danger" data-action="flag">Raise Exception</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="bulk-modal hidden" id="bulk-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bulk-modal-title">
+    <div class="modal-backdrop" data-bulk-dismiss></div>
+    <div class="bulk-card" tabindex="-1">
+      <button class="modal-close" aria-label="Close bulk signing" data-bulk-dismiss>&times;</button>
+      <header class="modal-header">
+        <div class="modal-heading">
+          <span class="modal-label">Bulk Signing</span>
+          <h3 id="bulk-modal-title">Review Selected Documents</h3>
+          <span class="detail-sub" id="bulk-selection-count"></span>
+        </div>
+      </header>
+      <section class="bulk-list-section">
+        <h4>Documents queued</h4>
+        <ul class="bulk-doc-list" id="bulk-doc-list"></ul>
+      </section>
+      <section class="signing-suite">
+        <header class="signing-head">
+          <h4>Choose a signing method</h4>
+          <span class="signing-recommendation">Recommended: <strong id="bulk-signing-recommendation">-</strong></span>
+        </header>
+        <div class="signing-options" id="bulk-signing-options" role="group" aria-label="Bulk signing methods"></div>
+        <div class="signing-actions">
+          <button class="primary" data-action="confirm-bulk-sign">Sign All</button>
+          <button class="ghost" data-bulk-dismiss>Cancel</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
+
+
+

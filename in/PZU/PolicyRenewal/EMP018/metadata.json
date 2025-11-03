@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250924-PolicyRenewal-EMP018.pdf",
+    "insurer":  "PZU",
+    "documentType":  "PolicyRenewal",
+    "employeeId":  "EMP018",
+    "employeeName":  "Damian Lewandowski",
+    "receivedAt":  "2025-09-24T18:29:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.pzu.example/api/policy-renewal",
+    "status":  "pending",
+    "notes":  "Auto-generated PolicyRenewal package for quarterly review."
+}

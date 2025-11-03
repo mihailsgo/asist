@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250918-AuditReport-EMP019.pdf",
+    "insurer":  "Generali",
+    "documentType":  "AuditReport",
+    "employeeId":  "EMP019",
+    "employeeName":  "Gosia Lis",
+    "receivedAt":  "2025-09-18T17:45:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.generali.example/api/audit-report",
+    "status":  "pending",
+    "notes":  "Includes supplemental exhibits for AuditReport."
+}

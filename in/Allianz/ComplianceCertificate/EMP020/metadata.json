@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250905-ComplianceCertificate-EMP020.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "ComplianceCertificate",
+    "employeeId":  "EMP020",
+    "employeeName":  "Iwona Lis",
+    "receivedAt":  "2025-09-06T03:30:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "compliance-cert@allianz-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Auto-generated ComplianceCertificate package for quarterly review."
+}

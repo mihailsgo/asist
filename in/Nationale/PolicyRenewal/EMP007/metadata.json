@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250831-PolicyRenewal-EMP007.pdf",
+    "insurer":  "Nationale",
+    "documentType":  "PolicyRenewal",
+    "employeeId":  "EMP007",
+    "employeeName":  "Norbert Sikorska",
+    "receivedAt":  "2025-09-01T11:55:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "policy-renewal@nationale-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Prepared for expedited insurer validation (PolicyRenewal)."
+}

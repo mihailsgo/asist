@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250919-PolicyRenewal-EMP021.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "PolicyRenewal",
+    "employeeId":  "EMP021",
+    "employeeName":  "Rafal Piatek",
+    "receivedAt":  "2025-09-19T22:52:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.allianz.example/api/policy-renewal",
+    "status":  "pending",
+    "notes":  "Includes supplemental exhibits for PolicyRenewal."
+}

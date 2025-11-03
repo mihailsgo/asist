@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250918-PolicyRenewal-EMP015.pdf",
+    "insurer":  "Nationale",
+    "documentType":  "PolicyRenewal",
+    "employeeId":  "EMP015",
+    "employeeName":  "Tomasz Osinski",
+    "receivedAt":  "2025-09-19T02:01:02.3847606+03:00",
+    "signatureRequirement":  "AES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.nationale.example/api/policy-renewal",
+    "status":  "pending",
+    "notes":  "Ready for single-click batch pipeline (PolicyRenewal)."
+}

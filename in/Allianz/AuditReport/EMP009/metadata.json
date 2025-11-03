@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250913-AuditReport-EMP009.pdf",
+    "insurer":  "Allianz",
+    "documentType":  "AuditReport",
+    "employeeId":  "EMP009",
+    "employeeName":  "Lukasz Maj",
+    "receivedAt":  "2025-09-13T23:57:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "API",
+    "deliveryTarget":  "https://sandbox.allianz.example/api/audit-report",
+    "status":  "pending",
+    "notes":  "Contains all required annexes for AuditReport."
+}

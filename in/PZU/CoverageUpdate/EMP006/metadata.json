@@ -1,0 +1,13 @@
+﻿{
+    "documentFilename":  "20250831-CoverageUpdate-EMP006.pdf",
+    "insurer":  "PZU",
+    "documentType":  "CoverageUpdate",
+    "employeeId":  "EMP006",
+    "employeeName":  "Sylwia Urban",
+    "receivedAt":  "2025-09-01T10:32:02.3847606+03:00",
+    "signatureRequirement":  "QES",
+    "deliveryChannel":  "Email",
+    "deliveryTarget":  "coverage-update@pzu-sandbox.example.com",
+    "status":  "pending",
+    "notes":  "Auto-generated CoverageUpdate package for quarterly review."
+}
