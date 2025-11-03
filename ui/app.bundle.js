@@ -179,6 +179,7 @@
     const routeButton = document.querySelector('[data-action="route"]');
     const flagButton = document.querySelector('[data-action="flag"]');
     const openBulkButton = document.querySelector('[data-action="open-bulk-sign"]');
+    const routeSelectedButton = document.querySelector('[data-action="route-selected"]');
     const confirmBulkButton = document.querySelector('[data-action="confirm-bulk-sign"]');
     const sortTriggers = Array.from(document.querySelectorAll("[data-sort]"));
     const fallbackData = [
@@ -430,11 +431,23 @@
       updateBulkSelectionUI();
     }
     function updateBulkSelectionUI() {
-      if (!openBulkButton) return;
-      const count = state.selectedIds.size;
-      openBulkButton.disabled = count === 0;
-      openBulkButton.textContent = count ? `Review & Sign Selected (${count})` : "Review & Sign Selected";
-      openBulkButton.classList.toggle("active", count > 0);
+      const selectedDocs = state.items.filter((item) => state.selectedIds.has(item.id));
+      const count = selectedDocs.length;
+      if (openBulkButton) {
+        openBulkButton.disabled = count === 0;
+        openBulkButton.textContent = count ? `Review & Sign Selected (${count})` : "Review & Sign Selected";
+        openBulkButton.classList.toggle("active", count > 0);
+      }
+      if (routeSelectedButton) {
+        const allSigned = count > 0 && selectedDocs.every((doc) => doc.workflowStatus === "signed");
+        routeSelectedButton.disabled = !allSigned;
+        routeSelectedButton.classList.toggle("active", allSigned);
+        if (allSigned) {
+          routeSelectedButton.textContent = `Route Selected to Insurer (${count})`;
+        } else {
+          routeSelectedButton.textContent = "Route Selected to Insurer";
+        }
+      }
     }
     function buildTimeline(doc) {
       const stages = [
@@ -874,6 +887,25 @@
       });
       if (openBulkButton) {
         openBulkButton.addEventListener("click", openBulkSignModal);
+      }
+      if (routeSelectedButton) {
+        routeSelectedButton.addEventListener("click", () => {
+          const docs = state.items.filter(
+            (item) => state.selectedIds.has(item.id) && item.workflowStatus === "signed"
+          );
+          if (!docs.length) {
+            showToast("Select signed documents to route.", "info");
+            updateBulkSelectionUI();
+            return;
+          }
+          docs.forEach((doc) => {
+            setStatus(doc.id, "routed", { message: `${doc.insurer} routing confirmed.` });
+          });
+          showToast(`Routing ${docs.length} signed document${docs.length > 1 ? "s" : ""} to insurer.`, "success");
+          state.selectedIds.clear();
+          renderTable();
+          updateBulkSelectionUI();
+        });
       }
       if (confirmBulkButton) {
         confirmBulkButton.addEventListener("click", () => {
