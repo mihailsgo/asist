@@ -401,6 +401,39 @@ button.ghost:hover {
   border-collapse: separate;
   border-spacing: 0 12px;
   background: transparent;
+  table-layout: fixed;
+}
+
+.table-wrapper col.col-select {
+  width: 52px;
+}
+
+.table-wrapper col.col-document {
+  width: clamp(240px, 28%, 420px);
+}
+
+.table-wrapper col.col-insurer {
+  width: clamp(120px, 12%, 180px);
+}
+
+.table-wrapper col.col-signature {
+  width: clamp(110px, 10%, 160px);
+}
+
+.table-wrapper col.col-channel {
+  width: clamp(140px, 14%, 200px);
+}
+
+.table-wrapper col.col-received {
+  width: clamp(150px, 14%, 220px);
+}
+
+.table-wrapper col.col-status {
+  width: clamp(150px, 14%, 220px);
+}
+
+.table-wrapper col.col-actions {
+  width: clamp(110px, 8%, 140px);
 }
 
 .select-col {
