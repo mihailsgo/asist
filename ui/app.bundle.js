@@ -685,9 +685,9 @@
       }, 2800);
     }
     function updateDropzones() {
-      const awaitingCount = state.items.filter((item) => !["signed", "delivered"].includes(item.workflowStatus)).length;
-      const signedDocs = state.items.filter((item) => ["signed", "delivered"].includes(item.workflowStatus));
-      const completedCount = signedDocs.length;
+      const awaitingCount = state.items.filter((item) => !["signed", "routed", "delivered"].includes(item.workflowStatus)).length;
+      const stagedDocs = state.items.filter((item) => ["signed", "routed", "delivered"].includes(item.workflowStatus));
+      const stagedCount = stagedDocs.length;
       if (inputDropSummaryEl) {
         inputDropSummaryEl.textContent = awaitingCount ? `${awaitingCount} document${awaitingCount === 1 ? "" : "s"} awaiting orchestration` : "All staged documents processed";
       }
@@ -696,18 +696,18 @@
         inputDropBadgeEl.classList.toggle("muted", awaitingCount === 0);
       }
       if (outputDropSummaryEl) {
-        outputDropSummaryEl.textContent = completedCount ? `${completedCount} signed artifact${completedCount === 1 ? "" : "s"} ready` : "Signed artifacts will appear here";
+        outputDropSummaryEl.textContent = stagedCount ? `${stagedCount} package${stagedCount === 1 ? "" : "s"} staged for delivery` : "Signed packages will appear here";
       }
       if (outputDropBadgeEl) {
-        outputDropBadgeEl.textContent = completedCount ? "Signatures ready" : "Awaiting signatures";
-        outputDropBadgeEl.classList.toggle("muted", completedCount === 0);
+        outputDropBadgeEl.textContent = stagedCount ? "Delivery staging ready" : "Awaiting signatures";
+        outputDropBadgeEl.classList.toggle("muted", stagedCount === 0);
       }
       if (outputDropListEl) {
-        if (!completedCount) {
-          outputDropListEl.innerHTML = '<li class="drop-list-empty">No signed packages yet.</li>';
+        if (!stagedCount) {
+          outputDropListEl.innerHTML = '<li class="drop-list-empty">No packages staged yet.</li>';
         } else {
-          const entries = signedDocs.slice(0, 6).map((doc) => {
-            const subtitle = `${doc.employeeName || doc.employeeId} \xB7 ${formatDocType(doc.documentType)}`;
+          const entries = stagedDocs.slice(0, 6).map((doc) => {
+            const subtitle = `${doc.employeeName || doc.employeeId} - ${formatDocType(doc.documentType)}`;
             const statusLabel = statusLabels[doc.workflowStatus] || doc.workflowStatus;
             return `
             <li>
@@ -717,8 +717,8 @@
             </li>
           `;
           });
-          if (signedDocs.length > 6) {
-            const remaining = signedDocs.length - 6;
+          if (stagedDocs.length > 6) {
+            const remaining = stagedDocs.length - 6;
             entries.push(`<li class="drop-list-more">+${remaining} additional package${remaining === 1 ? "" : "s"} queued</li>`);
           }
           outputDropListEl.innerHTML = entries.join("");
@@ -728,7 +728,7 @@
         inputDropzone.classList.toggle("zone-empty", awaitingCount === 0);
       }
       if (outputDropzone) {
-        outputDropzone.classList.toggle("zone-active", completedCount > 0);
+        outputDropzone.classList.toggle("zone-active", stagedCount > 0);
       }
     }
     function registerDropzone(zone, message) {
