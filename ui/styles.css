@@ -389,12 +389,12 @@ button.ghost:hover {
 
 .table-wrapper {
   --table-select-width: 56px;
-  --col-document: 0.32;
-  --col-insurer: 0.14;
-  --col-signature: 0.12;
-  --col-channel: 0.12;
-  --col-received: 0.16;
-  --col-status: 0.1;
+  --col-document: 0.45;
+  --col-insurer: 0.12;
+  --col-signature: 0.08;
+  --col-channel: 0.08;
+  --col-received: 0.12;
+  --col-status: 0.11;
   --col-actions: 0.04;
   border-radius: 22px;
   border: 1px solid rgba(98, 212, 255, 0.24);
