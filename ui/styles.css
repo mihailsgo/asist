@@ -388,6 +388,14 @@ button.ghost:hover {
 }
 
 .table-wrapper {
+  --table-select-width: 56px;
+  --col-document: 0.32;
+  --col-insurer: 0.14;
+  --col-signature: 0.12;
+  --col-channel: 0.12;
+  --col-received: 0.16;
+  --col-status: 0.1;
+  --col-actions: 0.04;
   border-radius: 22px;
   border: 1px solid rgba(98, 212, 255, 0.24);
   background: linear-gradient(160deg, rgba(12, 38, 68, 0.72), rgba(4, 17, 33, 0.92));
@@ -405,39 +413,39 @@ button.ghost:hover {
 }
 
 .table-wrapper col.col-select {
-  width: 52px;
+  width: var(--table-select-width);
 }
 
 .table-wrapper col.col-document {
-  width: clamp(240px, 28%, 420px);
+  width: calc((100% - var(--table-select-width)) * var(--col-document));
 }
 
 .table-wrapper col.col-insurer {
-  width: clamp(120px, 12%, 180px);
+  width: calc((100% - var(--table-select-width)) * var(--col-insurer));
 }
 
 .table-wrapper col.col-signature {
-  width: clamp(110px, 10%, 160px);
+  width: calc((100% - var(--table-select-width)) * var(--col-signature));
 }
 
 .table-wrapper col.col-channel {
-  width: clamp(140px, 14%, 200px);
+  width: calc((100% - var(--table-select-width)) * var(--col-channel));
 }
 
 .table-wrapper col.col-received {
-  width: clamp(150px, 14%, 220px);
+  width: calc((100% - var(--table-select-width)) * var(--col-received));
 }
 
 .table-wrapper col.col-status {
-  width: clamp(150px, 14%, 220px);
+  width: calc((100% - var(--table-select-width)) * var(--col-status));
 }
 
 .table-wrapper col.col-actions {
-  width: clamp(110px, 8%, 140px);
+  width: calc((100% - var(--table-select-width)) * var(--col-actions));
 }
 
 .select-col {
-  width: 44px;
+  width: var(--table-select-width);
   padding: 0 0 0 16px;
 }
 
