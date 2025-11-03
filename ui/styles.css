@@ -389,13 +389,7 @@ button.ghost:hover {
 
 .table-wrapper {
   --table-select-width: 56px;
-  --col-document: 0.45;
-  --col-insurer: 0.12;
-  --col-signature: 0.08;
-  --col-channel: 0.08;
-  --col-received: 0.12;
-  --col-status: 0.11;
-  --col-actions: 0.04;
+  --table-grid-template: var(--table-select-width) 45fr 12fr 8fr 8fr 12fr 11fr 4fr;
   border-radius: 22px;
   border: 1px solid rgba(98, 212, 255, 0.24);
   background: linear-gradient(160deg, rgba(12, 38, 68, 0.72), rgba(4, 17, 33, 0.92));
@@ -409,39 +403,13 @@ button.ghost:hover {
   border-collapse: separate;
   border-spacing: 0 12px;
   background: transparent;
-  table-layout: fixed;
 }
 
-.table-wrapper col.col-select {
-  width: var(--table-select-width);
-}
-
-.table-wrapper col.col-document {
-  width: calc((100% - var(--table-select-width)) * var(--col-document));
-}
-
-.table-wrapper col.col-insurer {
-  width: calc((100% - var(--table-select-width)) * var(--col-insurer));
-}
-
-.table-wrapper col.col-signature {
-  width: calc((100% - var(--table-select-width)) * var(--col-signature));
-}
-
-.table-wrapper col.col-channel {
-  width: calc((100% - var(--table-select-width)) * var(--col-channel));
-}
-
-.table-wrapper col.col-received {
-  width: calc((100% - var(--table-select-width)) * var(--col-received));
-}
-
-.table-wrapper col.col-status {
-  width: calc((100% - var(--table-select-width)) * var(--col-status));
-}
-
-.table-wrapper col.col-actions {
-  width: calc((100% - var(--table-select-width)) * var(--col-actions));
+.table-wrapper thead tr,
+.table-wrapper tbody tr {
+  display: grid;
+  grid-template-columns: var(--table-grid-template);
+  align-items: center;
 }
 
 .select-col {
