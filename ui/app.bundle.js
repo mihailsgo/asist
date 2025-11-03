@@ -912,7 +912,7 @@
       state.items = parseRawData(raw);
       state.filtered = [...state.items];
       updateDropzones();
-      registerDropzone(inputDropzone, "Demo uses a fixed intake manifest\u2014drag and drop is disabled in this preview.");
+      registerDropzone(inputDropzone, "Demo uses a fixed intake manifest - drag and drop is disabled in this preview.");
       registerDropzone(outputDropzone, "Exports are simulated in this guided demo. Drag and drop is not active.");
       populateFilters(state.items);
       renderMetrics(state.filtered);
