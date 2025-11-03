@@ -65,34 +65,32 @@
         </div>
       </section>
 
-      <section class="panel folders" aria-label="Folder selection">
-        <div class="folder-card" data-role="input">
-          <div class="folder-head">
-            <div>
-              <span class="folder-label">Input folder</span>
-              <p class="folder-hint">Source PDFs awaiting validation</p>
-            </div>
-            <button class="ghost" data-action="select-input">Change</button>
+      <section class="panel dropzones" aria-label="Document staging dropzones">
+        <div class="dropzone" id="input-dropzone" role="group" aria-labelledby="input-drop-title">
+          <span class="drop-badge" id="input-drop-badge">Queue clear</span>
+          <div class="drop-icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" role="presentation" focusable="false">
+              <path fill="none" stroke="rgba(98, 212, 255, 0.75)" stroke-width="2" d="M19 4l0 20"></path>
+              <path fill="none" stroke="rgba(98, 212, 255, 0.75)" stroke-width="2" d="M12 14l7-8 7 8"></path>
+              <rect x="7" y="24" width="24" height="8" rx="4" ry="4" fill="rgba(8, 30, 55, 0.65)" stroke="rgba(98, 212, 255, 0.2)" />
+            </svg>
           </div>
-          <div class="folder-path" id="input-folder-path"></div>
-          <div class="folder-meta" id="input-folder-meta">
-            <span class="status-dot live"></span>
-            <span class="folder-meta-text" id="input-folder-summary">-</span>
-          </div>
+          <h3 id="input-drop-title">Stage inbound documents</h3>
+          <p class="drop-summary" id="input-drop-summary">All staged documents processed</p>
+          <p class="drop-message">Drag &amp; drop PDFs or ZIP bundles to simulate uploads (demo placeholder).</p>
         </div>
-        <div class="folder-card" data-role="output">
-          <div class="folder-head">
-            <div>
-              <span class="folder-label">Output folder</span>
-              <p class="folder-hint">Signed &amp; routed artifacts</p>
-            </div>
-            <button class="ghost" data-action="select-output">Change</button>
+        <div class="dropzone" id="output-dropzone" role="group" aria-labelledby="output-drop-title">
+          <span class="drop-badge" id="output-drop-badge">Awaiting signatures</span>
+          <div class="drop-icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" role="presentation" focusable="false">
+              <path fill="none" stroke="rgba(98, 212, 255, 0.75)" stroke-width="2" d="M19 34l0-20"></path>
+              <path fill="none" stroke="rgba(98, 212, 255, 0.75)" stroke-width="2" d="M12 24l7 8 7-8"></path>
+              <rect x="7" y="6" width="24" height="8" rx="4" ry="4" fill="rgba(8, 30, 55, 0.65)" stroke="rgba(98, 212, 255, 0.2)" />
+            </svg>
           </div>
-          <div class="folder-path" id="output-folder-path"></div>
-          <div class="folder-meta" id="output-folder-meta">
-            <span class="status-dot"></span>
-            <span class="folder-meta-text" id="output-folder-summary">-</span>
-          </div>
+          <h3 id="output-drop-title">Collect signed packages</h3>
+          <p class="drop-summary" id="output-drop-summary">Signed artifacts will appear here</p>
+          <p class="drop-message">Drop files to mimic export (non-interactive in this guided demo).</p>
         </div>
       </section>
 

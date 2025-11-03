@@ -4,6 +4,7 @@
     pending: "Awaiting validation",
     ready: "Ready for signature",
     signing: "Signature in progress",
+    signed: "Signed for delivery",
     routed: "Dispatched to insurer",
     delivered: "Confirmation logged",
     error: "Requires attention"
@@ -12,8 +13,9 @@
     pending: 1,
     ready: 2,
     signing: 3,
-    routed: 4,
-    delivered: 5,
+    signed: 4,
+    routed: 5,
+    delivered: 6,
     error: 3
   };
   function formatDocType(value = "") {
@@ -79,10 +81,11 @@
       clearTimers();
       setActive(true);
       const stageTimeline = [
-        { status: "ready", delay: 500 },
-        { status: "signing", delay: 700 },
-        { status: "routed", delay: 900 },
-        { status: "delivered", delay: 1e3 }
+        { status: "ready", delay: 450 },
+        { status: "signing", delay: 620 },
+        { status: "signed", delay: 540 },
+        { status: "routed", delay: 720 },
+        { status: "delivered", delay: 900 }
       ];
       items.forEach((item, index) => {
         let scheduledAt = index * 280;
@@ -107,8 +110,11 @@
                   context: { message: `${item.insurer} ready after remediation.` }
                 });
                 timers.push(window.setTimeout(() => {
-                  notify({ type: "status", id: item.id, status: "delivered" });
-                }, 900));
+                  notify({ type: "status", id: item.id, status: "signed" });
+                  timers.push(window.setTimeout(() => {
+                    notify({ type: "status", id: item.id, status: "delivered" });
+                  }, 780));
+                }, 620));
               }, 1600));
               return;
             }
@@ -161,11 +167,12 @@
     const typeFilter = document.getElementById("type-filter");
     const signatureFilter = document.getElementById("signature-filter");
     const searchInput = document.getElementById("search-input");
-    const inputPathEl = document.getElementById("input-folder-path");
-    const outputPathEl = document.getElementById("output-folder-path");
-    const outputMetaEl = document.getElementById("output-folder-meta");
-    const inputSummaryEl = document.getElementById("input-folder-summary");
-    const outputSummaryEl = document.getElementById("output-folder-summary");
+    const inputDropzone = document.getElementById("input-dropzone");
+    const outputDropzone = document.getElementById("output-dropzone");
+    const inputDropSummaryEl = document.getElementById("input-drop-summary");
+    const outputDropSummaryEl = document.getElementById("output-drop-summary");
+    const inputDropBadgeEl = document.getElementById("input-drop-badge");
+    const outputDropBadgeEl = document.getElementById("output-drop-badge");
     const liveIndicator = document.getElementById("live-indicator");
     const signNowButton = document.querySelector('[data-action="sign-now"]');
     const routeButton = document.querySelector('[data-action="route"]');
@@ -222,8 +229,6 @@
         key: "receivedDate",
         direction: "desc"
       },
-      inputFolder: "c:\\Repos\\ASIST\\in",
-      outputFolder: "c:\\Repos\\ASIST\\out",
       streaming: false
     };
     const orchestrator = createMockOrchestrator();
@@ -335,7 +340,7 @@
       state.filtered = filtered;
       renderTable();
       renderMetrics(filtered);
-      updateFolderCards();
+      updateDropzones();
       updateBulkSelectionUI();
     }
     function renderTable(items = state.filtered) {
@@ -435,7 +440,8 @@
         { key: "pending", label: "Intake received" },
         { key: "ready", label: "Data validated" },
         { key: "signing", label: "Signature sequencing" },
-        { key: "routed", label: "Batch signing" },
+        { key: "signed", label: "Signatures completed" },
+        { key: "routed", label: "Dispatch routing" },
         { key: "delivered", label: "Delivery + confirmation" }
       ];
       const activeIndex = statusStepIndex[doc.workflowStatus] || 1;
@@ -664,14 +670,60 @@
         window.setTimeout(() => toast.remove(), 700);
       }, 2800);
     }
-    function updateFolderCards() {
-      inputPathEl.textContent = state.inputFolder;
-      outputPathEl.textContent = state.outputFolder;
-      const pendingCount = state.items.filter((item) => item.workflowStatus !== "delivered").length;
+    function updateDropzones() {
+      const awaitingCount = state.items.filter((item) => !["signed", "delivered"].includes(item.workflowStatus)).length;
+      const signedCount = state.items.filter((item) => item.workflowStatus === "signed").length;
       const deliveredCount = state.items.filter((item) => item.workflowStatus === "delivered").length;
-      inputSummaryEl.textContent = `${pendingCount} awaiting orchestration`;
-      outputSummaryEl.textContent = deliveredCount ? `${deliveredCount} delivered artifacts ready` : "Awaiting first delivery";
-      outputMetaEl.classList.toggle("delivered", deliveredCount > 0);
+      const completedCount = signedCount + deliveredCount;
+      if (inputDropSummaryEl) {
+        inputDropSummaryEl.textContent = awaitingCount ? `${awaitingCount} document${awaitingCount === 1 ? "" : "s"} awaiting orchestration` : "All staged documents processed";
+      }
+      if (inputDropBadgeEl) {
+        inputDropBadgeEl.textContent = awaitingCount ? "Staging queue active" : "Queue clear";
+        inputDropBadgeEl.classList.toggle("muted", awaitingCount === 0);
+      }
+      if (outputDropSummaryEl) {
+        outputDropSummaryEl.textContent = completedCount ? `${completedCount} signed artifact${completedCount === 1 ? "" : "s"} ready` : "Signed artifacts will appear here";
+      }
+      if (outputDropBadgeEl) {
+        outputDropBadgeEl.textContent = completedCount ? "Signatures ready" : "Awaiting signatures";
+        outputDropBadgeEl.classList.toggle("muted", completedCount === 0);
+      }
+      if (inputDropzone) {
+        inputDropzone.classList.toggle("zone-empty", awaitingCount === 0);
+      }
+      if (outputDropzone) {
+        outputDropzone.classList.toggle("zone-active", completedCount > 0);
+      }
+    }
+    function registerDropzone(zone, message) {
+      if (!zone) return;
+      const showHighlight = (event) => {
+        event.preventDefault();
+        zone.classList.add("drag-over");
+      };
+      const hideHighlight = () => zone.classList.remove("drag-over");
+      zone.addEventListener("dragenter", showHighlight);
+      zone.addEventListener("dragover", showHighlight);
+      zone.addEventListener("dragleave", (event) => {
+        const next = event.relatedTarget;
+        if (!next || !zone.contains(next)) {
+          hideHighlight();
+        }
+      });
+      zone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        hideHighlight();
+        if (message) {
+          showToast(message, "info");
+        }
+      });
+      zone.addEventListener("dragend", hideHighlight);
+      zone.addEventListener("click", () => {
+        if (message) {
+          showToast(message, "info");
+        }
+      });
     }
     function updateLiveIndicator(active) {
       liveIndicator.classList.toggle("active", active);
@@ -681,13 +733,6 @@
       if (messageEl) {
         messageEl.textContent = message;
       }
-    }
-    function promptForFolder(kind, currentValue) {
-      const proposed = window.prompt(`Set ${kind} folder path`, currentValue);
-      if (!proposed) {
-        return null;
-      }
-      return proposed.trim();
     }
     function setStatus(id, status, context = {}) {
       const doc = state.items.find((item) => item.id === id);
@@ -701,12 +746,16 @@
       } else if (status === "delivered") {
         doc.errorMessage = null;
         showToast(`${doc.documentFilename} delivered to ${doc.insurer}`, "success");
+      } else if (status === "signed" && !context.silent) {
+        doc.errorMessage = null;
+        const message = context.message || `${doc.documentFilename} signed and ready to route.`;
+        showToast(message, "success");
       } else if (status === "ready" && context.message) {
         showToast(context.message, "info");
       }
       renderTable();
       renderMetrics(state.filtered);
-      updateFolderCards();
+      updateDropzones();
       if (state.selectedId === doc.id) {
         openDetail(doc);
       }
@@ -767,22 +816,6 @@
       document.querySelector('[data-action="export-report"]').addEventListener("click", () => {
         showToast("Compliance snapshot exported (mock).", "success");
       });
-      document.querySelector('[data-action="select-input"]').addEventListener("click", () => {
-        const next = promptForFolder("input", state.inputFolder);
-        if (next) {
-          state.inputFolder = next;
-          updateFolderCards();
-          showToast(`Input folder set to ${next}`, "info");
-        }
-      });
-      document.querySelector('[data-action="select-output"]').addEventListener("click", () => {
-        const next = promptForFolder("output", state.outputFolder);
-        if (next) {
-          state.outputFolder = next;
-          updateFolderCards();
-          showToast(`Output folder set to ${next}`, "info");
-        }
-      });
       signNowButton.addEventListener("click", () => {
         if (!state.selectedId) {
           showToast("Select a document to fast-track signing.", "info");
@@ -799,9 +832,9 @@
           return;
         }
         const method = getMethodById(state.selectedSigningMethod);
-        orchestrator.startBatch([doc]);
         const methodLabel = method ? method.label : "selected method";
-        showToast(`Signing ${doc.documentFilename} via ${methodLabel}.`, "success");
+        setStatus(doc.id, "signed", { silent: true });
+        showToast(`Signed ${doc.documentFilename} via ${methodLabel}.`, "success");
       });
       routeButton.addEventListener("click", () => {
         if (!state.selectedId) {
@@ -833,7 +866,8 @@
             return;
           }
           const methodLabel = getMethodById(state.bulkSelectedMethod)?.label || "selected method";
-          showToast(`Signing ${docs.length} documents via ${methodLabel}.`, "success");
+          docs.forEach((doc) => setStatus(doc.id, "signed", { silent: true }));
+          showToast(`Signed ${docs.length} document${docs.length > 1 ? "s" : ""} via ${methodLabel}.`, "success");
           closeBulkModal();
           state.selectedIds.clear();
           renderTable();
@@ -877,7 +911,9 @@
       const raw = Array.isArray(window.manifestData) && window.manifestData.length ? window.manifestData : fallbackData;
       state.items = parseRawData(raw);
       state.filtered = [...state.items];
-      updateFolderCards();
+      updateDropzones();
+      registerDropzone(inputDropzone, "Demo uses a fixed intake manifest\u2014drag and drop is disabled in this preview.");
+      registerDropzone(outputDropzone, "Exports are simulated in this guided demo. Drag and drop is not active.");
       populateFilters(state.items);
       renderMetrics(state.filtered);
       renderTable(state.filtered);

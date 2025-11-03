@@ -666,6 +666,13 @@ button.ghost:hover {
   color: #dbe7ff;
 }
 
+.status-pill.signed {
+  background: rgba(74, 222, 128, 0.18);
+  border-color: rgba(74, 222, 128, 0.32);
+  color: #e5fff2;
+  font-weight: 600;
+}
+
 .status-pill.routed {
   background: rgba(34, 184, 160, 0.2);
   border-color: rgba(34, 184, 160, 0.32);
@@ -816,78 +823,106 @@ td.empty {
   opacity: 0;
   transform: translateY(-12px);
 }
-.folders {
+.dropzones {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
   align-items: stretch;
 }
 
-.folder-card {
-  padding: 20px;
-  border-radius: 20px;
-  background: rgba(10, 15, 32, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.dropzone {
+  position: relative;
+  padding: 26px 24px 28px;
+  border-radius: 22px;
+  border: 1px dashed rgba(98, 212, 255, 0.38);
+  background: linear-gradient(150deg, rgba(11, 32, 60, 0.78), rgba(6, 24, 46, 0.82));
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-height: 164px;
+  text-align: center;
+  min-height: 190px;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
-.folder-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
+.dropzone:focus-visible {
+  outline: 2px solid rgba(98, 212, 255, 0.65);
+  outline-offset: 4px;
 }
 
-.folder-label {
-  font-size: 0.75rem;
+.dropzone::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 18px;
+  border: 1px solid rgba(98, 212, 255, 0.18);
+  pointer-events: none;
+}
+
+.dropzone .drop-badge {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(8, 34, 62, 0.75);
+  border: 1px solid rgba(98, 212, 255, 0.25);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  color: rgba(176, 220, 255, 0.88);
 }
 
-.folder-hint {
-  margin: 6px 0 0;
-  font-size: 0.78rem;
-  color: var(--text-muted);
+.dropzone .drop-badge.muted {
+  border-color: rgba(98, 212, 255, 0.12);
+  color: rgba(176, 220, 255, 0.6);
 }
 
-.folder-path {
-  font-family: 'Consolas', 'SFMono-Regular', 'Segoe UI Mono', monospace;
-  font-size: 0.88rem;
-  background: rgba(9, 13, 28, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 10px 14px;
-  border-radius: 12px;
-  word-break: break-all;
-}
-
-.folder-meta {
-  display: inline-flex;
+.dropzone .drop-icon {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-  font-size: 0.82rem;
-  color: var(--text-muted);
+  height: 60px;
 }
 
-.folder-meta .status-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: none;
+.dropzone h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #f4f8ff;
 }
 
-.folder-card[data-role="input"] .folder-meta .status-dot {
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(58, 141, 255, 0.35);
+.dropzone .drop-summary {
+  margin: 0;
+  color: rgba(176, 220, 255, 0.82);
+  font-size: 0.9rem;
 }
 
-.folder-card[data-role="output"] .folder-meta.delivered .status-dot {
-  background: var(--primary);
-  box-shadow: 0 0 12px rgba(88, 196, 255, 0.4);
+.dropzone .drop-message {
+  margin: 0 auto;
+  max-width: 360px;
+  font-size: 0.78rem;
+  color: rgba(176, 220, 255, 0.65);
+}
+
+.dropzone.drag-over {
+  border-style: solid;
+  border-color: rgba(98, 212, 255, 0.75);
+  box-shadow: 0 30px 48px -32px rgba(6, 24, 46, 0.7);
+  transform: translateY(-2px);
+}
+
+.dropzone.zone-empty {
+  opacity: 0.78;
+  border-color: rgba(98, 212, 255, 0.22);
+}
+
+.dropzone.zone-active {
+  border-style: solid;
+  border-color: rgba(74, 222, 128, 0.4);
+  box-shadow: 0 38px 62px -40px rgba(22, 120, 70, 0.45);
+}
+
+.dropzone.zone-active .drop-badge {
+  background: rgba(11, 53, 43, 0.75);
+  border-color: rgba(74, 222, 128, 0.4);
+  color: rgba(206, 255, 235, 0.85);
 }
 
 .table-status {
@@ -957,20 +992,10 @@ tbody tr.row-flash {
 }
 
 @media (max-width: 768px) {
-  .folders {
+  .dropzones {
     grid-template-columns: 1fr;
   }
 }
-
-  30% { box-shadow: inset 0 0 0 999px rgba(88, 196, 255, 0.16); }
-  100% { box-shadow: inset 0 0 0 0 rgba(88, 196, 255, 0); }
-}
-
-@keyframes statusPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(88, 196, 255, 0.24); }
-  50% { transform: scale(1.3); box-shadow: 0 0 0 6px rgba(88, 196, 255, 0); }
-}
-
 
 body.modal-open {
   overflow: hidden;

@@ -2,6 +2,7 @@ export const statusLabels = {
   pending: 'Awaiting validation',
   ready: 'Ready for signature',
   signing: 'Signature in progress',
+  signed: 'Signed for delivery',
   routed: 'Dispatched to insurer',
   delivered: 'Confirmation logged',
   error: 'Requires attention'
@@ -11,8 +12,9 @@ export const statusStepIndex = {
   pending: 1,
   ready: 2,
   signing: 3,
-  routed: 4,
-  delivered: 5,
+  signed: 4,
+  routed: 5,
+  delivered: 6,
   error: 3
 };
 
@@ -88,10 +90,11 @@ export function createMockOrchestrator() {
     setActive(true);
 
     const stageTimeline = [
-      { status: 'ready', delay: 500 },
-      { status: 'signing', delay: 700 },
-      { status: 'routed', delay: 900 },
-      { status: 'delivered', delay: 1000 }
+      { status: 'ready', delay: 450 },
+      { status: 'signing', delay: 620 },
+      { status: 'signed', delay: 540 },
+      { status: 'routed', delay: 720 },
+      { status: 'delivered', delay: 900 }
     ];
 
     items.forEach((item, index) => {
@@ -121,8 +124,12 @@ export function createMockOrchestrator() {
               });
 
               timers.push(window.setTimeout(() => {
-                notify({ type: 'status', id: item.id, status: 'delivered' });
-              }, 900));
+                notify({ type: 'status', id: item.id, status: 'signed' });
+
+                timers.push(window.setTimeout(() => {
+                  notify({ type: 'status', id: item.id, status: 'delivered' });
+                }, 780));
+              }, 620));
             }, 1600));
             return;
           }

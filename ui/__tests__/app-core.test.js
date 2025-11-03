@@ -85,8 +85,10 @@ describe('createMockOrchestrator', () => {
     expect(statusEvents.map((event) => event.status)).toEqual([
       'ready',
       'signing',
+      'signed',
       'error',
       'ready',
+      'signed',
       'delivered'
     ]);
 
